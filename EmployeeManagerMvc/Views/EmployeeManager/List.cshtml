@@ -1,0 +1,51 @@
+﻿@model List<Employee>
+
+<h2 class="mt-4">List of Employees</h2>
+
+@if (!string.IsNullOrEmpty(TempData["Message"] as string))
+
+{
+    <div class="alert alert-info">
+        @TempData["Message"]
+    </div>
+}
+
+<div class="mb-3">
+    <a asp-controller="EmployeeManager"
+       asp-action="Insert"
+       class="btn btn-primary">Insert New Employee</a>
+</div>
+
+<table class="table table-bordered table-striped">
+    <thead class="table-light">
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+            <th scope="col">Title</th>
+            <th scope="col" colspan="2">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+
+        {
+            <tr>
+                <td>@item.EmployeeID</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.Title</td>
+                <td>
+                    <a asp-controller="EmployeeManager"
+                       asp-action="Update"
+                       asp-route-id="@item.EmployeeID" class="btn btn-warning btn-sm">Update</a>
+                </td>
+                <td>
+                    <a asp-controller="EmployeeManager"
+                       asp-action="Delete"
+                       asp-route-id="@item.EmployeeID" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
